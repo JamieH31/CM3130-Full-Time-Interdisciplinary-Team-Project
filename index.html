@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Three.js - Load .OBJ ?</title>
+    <title>Three.js - Load .GLTF</title>
     <style>
 html, body {
   margin: 0;
@@ -33,12 +33,13 @@ html, body {
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 function main() {
 
 	const canvas = document.querySelector( '#c' );
 	const renderer = new THREE.WebGLRenderer( { antialias: true, canvas } );
+	const loader = new GLTFLoader();
 
 	const fov = 45;
 	const aspect = 2; // the canvas default
@@ -102,12 +103,18 @@ function main() {
 
 	{
 
-		const objLoader = new OBJLoader();
-		objLoader.load( '/beogus.gltf', ( root ) => {
+	loader.load( '/beohus.gltf', function ( gltf ) {
+		console.log("loaded");
+		scene.add( gltf.scene);
+		scene.position.set(0, 0, 0);
+		scene.scale.set(2,2,2);
 
-			scene.add( root );
+	}, undefined, function ( error ) {
 
-		} );
+		console.error( error );
+
+	});
+
 
 	}
 
