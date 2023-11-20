@@ -164,12 +164,12 @@
 				//just a check to make sure we've got the right object
 				console.log(camera);
 
-				//Change the position to whatever you want to focus on
+				//Change the position to whatever you want to focus on, the lookat stops the camera from trying to "refocus" itself
 				camera.position.set(10, 10, 10);
 				camera.lookAt(controls.target);
 
 
-
+				//Changes the fov and then updates it
 				camera.fov = 20;
 				camera.updateProjectionMatrix();
 			}

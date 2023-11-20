@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
   <link rel="stylesheet" type="text/css" href="styles/landingStyles.css"/>
+  <link rel="stylesheet" type="text/css" href="styles/StyleSheet.css"/>
 </head>
 
 <body>
@@ -15,42 +16,52 @@
     <a href="#home">Logo</a>
   </nav>
 
-  <main>
-    <div class = "mainFlex">
+  <main class = "mainFlex">
+    <!-- The main container which houses any introductionary info along with a button to take you to the viewer -->
+    <div id = "contentContainer">
+        <section>
+          <div>
+            <h1>BEOHUS</h1>
+          </div>
 
-      <section>
-        <div>
-          <h1>BEOHUS</h1>
-        </div>
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fringilla ut morbi tincidunt augue interdum velit euismod. Aliquam malesuada bibendum arcu vitae. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Morbi non arcu risus quis varius quam. Duis convallis convallis tellus id interdum velit laoreet id. Turpis egestas maecenas pharetra convallis posuere morbi leo urna molestie. Etiam non quam lacus suspendisse faucibus. Enim lobortis scelerisque fermentum dui. Gravida quis blandit turpis cursus in. Eget magna fermentum iaculis eu. Vitae congue eu consequat ac felis donec et. Risus in hendrerit gravida rutrum quisque non tellus. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Enim nunc faucibus a pellentesque sit amet porttitor. Egestas maecenas pharetra convallis posuere morbi leo. Bibendum ut tristique et egestas. At in tellus integer feugiat scelerisque varius morbi enim nunc. Non pulvinar neque laoreet suspendisse interdum.
 
-        <div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fringilla ut morbi tincidunt augue interdum velit euismod. Aliquam malesuada bibendum arcu vitae. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Morbi non arcu risus quis varius quam. Duis convallis convallis tellus id interdum velit laoreet id. Turpis egestas maecenas pharetra convallis posuere morbi leo urna molestie. Etiam non quam lacus suspendisse faucibus. Enim lobortis scelerisque fermentum dui. Gravida quis blandit turpis cursus in. Eget magna fermentum iaculis eu. Vitae congue eu consequat ac felis donec et. Risus in hendrerit gravida rutrum quisque non tellus. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Enim nunc faucibus a pellentesque sit amet porttitor. Egestas maecenas pharetra convallis posuere morbi leo. Bibendum ut tristique et egestas. At in tellus integer feugiat scelerisque varius morbi enim nunc. Non pulvinar neque laoreet suspendisse interdum.
+              Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum. Blandit volutpat maecenas volutpat blandit. Lacus vestibulum sed arcu non odio euismod lacinia at. Augue eget arcu dictum varius duis at consectetur lorem. Molestie nunc non blandit massa enim nec dui nunc. Praesent tristique magna sit amet purus gravida. Lacinia quis vel eros donec ac. Odio eu feugiat pretium nibh ipsum. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Maecenas sed enim ut sem viverra aliquet eget sit. Condimentum mattis pellentesque id nibh. Cursus vitae congue mauris rhoncus aenean. Lobortis scelerisque fermentum dui faucibus in ornare quam. Sagittis aliquam malesuada bibendum arcu vitae elementum. Luctus accumsan tortor posuere ac ut consequat semper viverra nam. Sollicitudin tempor id eu nisl nunc mi.
+            </p>
+          </div>
 
-            Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum. Blandit volutpat maecenas volutpat blandit. Lacus vestibulum sed arcu non odio euismod lacinia at. Augue eget arcu dictum varius duis at consectetur lorem. Molestie nunc non blandit massa enim nec dui nunc. Praesent tristique magna sit amet purus gravida. Lacinia quis vel eros donec ac. Odio eu feugiat pretium nibh ipsum. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Maecenas sed enim ut sem viverra aliquet eget sit. Condimentum mattis pellentesque id nibh. Cursus vitae congue mauris rhoncus aenean. Lobortis scelerisque fermentum dui faucibus in ornare quam. Sagittis aliquam malesuada bibendum arcu vitae elementum. Luctus accumsan tortor posuere ac ut consequat semper viverra nam. Sollicitudin tempor id eu nisl nunc mi.
-          </p>
-        </div>
+          <div id = "landingButton">
 
-        <div id = "landingButton">
+            <button>
+              Model Preview
+            </button>
 
-          <button>
-            Model Preview
-          </button>
+          </div>
 
-        </div>
+        </section>
 
-      </section>
+      </div>
 
-      <div>
+      <!-- A second div to contain a preview of the model, if we just wanna have one of the renders here or a slideshow of renders I am all for that -->
+      <div id = "canvasContainer">
         <section>
           
           <div>
+            <!-- 
+              Things are gonna be a little ugly because we can either copy the script over here and throw a little rotation on it
+            or we can try to get it to reference the script from an external javascript file which I haven't had any success in so if you wanna give it a go
+            I would enjoy seeing that implemented
+          -->
+            <canvas id = "landingPageCanvas"></canvas>
           </div>
-  
+
         </section>
-  
+
       </div>
     </div>
+
   </main>
 
   <footer>

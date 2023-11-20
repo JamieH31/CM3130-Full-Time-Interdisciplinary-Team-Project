@@ -1,16 +1,20 @@
 /*Our Styles*/
 .mainFlex{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: nowrap;
+  display: flex;  
+  flex-direction: row;
 
-  flex-grow: 1;
-  flex-basis: 25%;
+  margin: 5%;
+}
 
-  width: 25%;
-  height: 100%;
+#contentContainer{
 
-  margin-left: 10%;
-  margin-top: 5%;
+  width: 50%; 
+  height: 75%;
+}
+
+/* Setup the canvas preview ready for whatever we want here, might need to explore sizes */
+#canvasContainer{
+
+  width: 50%; 
+  height: 75%;
 }
