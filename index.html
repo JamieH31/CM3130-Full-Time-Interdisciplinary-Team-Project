@@ -1,161 +1,217 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Three.js - Load .GLTF</title>
-    <style>
-html, body {
-  margin: 0;
-  height: 100%;
-}
-#c {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
+  	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+		<title>Three.js - Load .GLTF</title>
 
-    </style>
-  </head>
+		<link rel="stylesheet" href="/styles/veiwerStyles.css">
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "https://threejs.org/build/three.module.js",
+					"three/addons/": "https://threejs.org/examples/jsm/"
+				}
+			}
+		</script>
+		
+
+		<!-- 
+			Start of the script for the 3d viewer 
+			It gets verbose fast, so I've added some comments to help understanding
+			the best place to look if you have any issues is the 3js documentation 
+		-->
+		<script type="module">
+				
+			import * as THREE from 'three';
+			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+			let camera, scene, canvas, controls, renderer
+
+			function main() {
+
+				/* 
+				Initially the canvas for the model to sit on is created and refrenced from the html
+				The renderer we use for rendering on the web is used
+				The loader for our 3d object is then also loaded
+
+				The camera and it's initial values are then setup 
+				The orbit controls are then created attaching them to the camera in the canvas
+
+				finally we create our scene with a black skybox
+				
+				*/
+				canvas = document.querySelector( '#viewerCanvas' );
+				renderer = new THREE.WebGLRenderer( { antialias: true, canvas } );
+				const loader = new GLTFLoader();
+
+				const fov = 45;
+				const aspect = 2; 
+				const near = 0.1;
+				const far = 100;
+				camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+				camera.position.set( 0, 10, 20 );
+
+				controls = new OrbitControls( camera, canvas );
+				controls.target.set( 0, 5, 0 );
+				controls.update();
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 'black' );
+
+				//Setup the initial scene including setting a basic plane for models to sit on
+				{
+
+					const planeSize = 40;
+
+					//This sets the planes texture to be the following checkered pattern then repeats this pattern infinitely to fit the plane
+					const loader = new THREE.TextureLoader();
+					const texture = loader.load( 'https://threejs.org/manual/examples/resources/images/checker.png' );
+					texture.colorSpace = THREE.SRGBColorSpace;
+					texture.wrapS = THREE.RepeatWrapping;
+					texture.wrapT = THREE.RepeatWrapping;
+					texture.magFilter = THREE.NearestFilter;
+					const repeats = planeSize / 2;
+					texture.repeat.set( repeats, repeats );
+
+					//Makes the plane itself then creatures a mesh material, then the sets which sides of the plane should be rendered
+					const planeGeo = new THREE.PlaneGeometry( planeSize, planeSize );
+					const planeMat = new THREE.MeshPhongMaterial( {
+						map: texture,
+						side: THREE.DoubleSide,
+					} );
+
+					//Renders the plane
+					const mesh = new THREE.Mesh( planeGeo, planeMat );
+					mesh.rotation.x = Math.PI * - .5;
+					scene.add( mesh );
+
+				}
+
+				//Setup lights so our model isn't sat in a void
+				{
+
+					const skyColor = 0xB1E1FF; // light blue
+					const groundColor = 0xB97A20; // brownish orange
+					const intensity = 2;
+
+					//Without the light here the scene would just be darkness which doesn't look great
+					const light = new THREE.HemisphereLight( skyColor, groundColor, intensity );
+					scene.add( light );
+
+				}
+
+				{
+
+					const color = 0xFFFFFF;
+					const intensity = 2.5;
+					const light = new THREE.DirectionalLight( color, intensity );
+					light.position.set( 0, 10, 0 );
+					light.target.position.set( - 5, 0, 0 );
+					scene.add( light );
+					scene.add( light.target );
+
+				}
+
+				//Load the model and add it to the scene
+				{
+
+				loader.load( '/beohus.gltf', function ( gltf ) {
+					console.log("loaded");
+					scene.add( gltf.scene);
+					scene.position.set(0, 0, 0);
+					scene.scale.set(2,2,2);
+
+				}, undefined, function ( error ) {
+					//Catch if the model doesn't load properly allowing for diagnosis of issues
+					console.error( error );
+
+				});
+
+
+				}
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );		
+
+				function animate() {
+					requestAnimationFrame( animate );
+					renderer.render( scene, camera );
+				}
+
+				animate();
+			}
+
+			main();
+
+
+			//Ensure the window has loaded before we try attaching anything, this was a big pain point so be careful
+			window.onload=function(){
+				let viewerOne = document.getElementById("ViewSelectorOne");
+				let viewerTwo = document.getElementById("ViewSelectorTwo");
+				let viewerThree = document.getElementById("ViewSelectorThree");
+
+				viewerOne.addEventListener("click", viewHandlerOne);
+				viewerTwo.addEventListener("click", viewHandlerTwo);
+				viewerThree.addEventListener("click", viewHandlerThree);
+			}		
+
+			//The actual execution of moving the camera, there should be a better way of doing this but since this is a prototype it's been settled with repeating functions 
+			function viewHandlerOne(){
+				//just a check to make sure we've got the right object
+				console.log(camera);
+
+				//Change the position to whatever you want to focus on
+				camera.position.set(10, 10, 10);
+				camera.lookAt(controls.target);
+
+
+
+				camera.fov = 20;
+				camera.updateProjectionMatrix();
+			}
+
+			function viewHandlerTwo(){
+				console.log(camera);
+
+				camera.position.set(30, 10, 30);
+				camera.lookAt(controls.target);
+
+				
+				camera.fov = 20;
+				camera.updateProjectionMatrix();
+			}
+
+			function viewHandlerThree(){
+				console.log(camera);
+				camera.lookAt(controls.target);
+
+				camera.position.set(50, 10, 10);
+
+				
+				camera.fov = 20;
+				camera.updateProjectionMatrix();
+			}
+
+		</script>
+
+		<script src="scripts/veiwerScript.js"></script>
+	</head>
+
   <body>
-<canvas id="c"></canvas>
-  <script  type="importmap">{
-	"imports": {
-		"three": "https://threejs.org/build/three.module.js",
-		"three/addons/": "https://threejs.org/examples/jsm/"
-	}
-}</script>
+	<!-- All the buttons below are used as camera controls alongside the orbit controls -->
+	<div id="buttonContainer">
+		<button id = "ViewSelectorOne" type="button">View One Test</button>
+		<button  id = "ViewSelectorTwo" type="button">View Two Test</button>
+		<button  id = "ViewSelectorThree" type="button">View Three Test</button>
+	</div>
+
+	<!-- The container for the 3d viewer -->
+	<canvas id="viewerCanvas">
+	</canvas>
+
   </body>
-
-  <script type="module">
-// Three.js - Load .OBJ ?
-// from https://threejs.org/manual/examples/load-obj-no-materials.html
-
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-function main() {
-
-	const canvas = document.querySelector( '#c' );
-	const renderer = new THREE.WebGLRenderer( { antialias: true, canvas } );
-	const loader = new GLTFLoader();
-
-	const fov = 45;
-	const aspect = 2; // the canvas default
-	const near = 0.1;
-	const far = 100;
-	const camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	camera.position.set( 0, 10, 20 );
-
-	const controls = new OrbitControls( camera, canvas );
-	controls.target.set( 0, 5, 0 );
-	controls.update();
-
-	const scene = new THREE.Scene();
-	scene.background = new THREE.Color( 'black' );
-
-	{
-
-		const planeSize = 40;
-
-		const loader = new THREE.TextureLoader();
-		const texture = loader.load( 'https://threejs.org/manual/examples/resources/images/checker.png' );
-		texture.colorSpace = THREE.SRGBColorSpace;
-		texture.wrapS = THREE.RepeatWrapping;
-		texture.wrapT = THREE.RepeatWrapping;
-		texture.magFilter = THREE.NearestFilter;
-		const repeats = planeSize / 2;
-		texture.repeat.set( repeats, repeats );
-
-		const planeGeo = new THREE.PlaneGeometry( planeSize, planeSize );
-		const planeMat = new THREE.MeshPhongMaterial( {
-			map: texture,
-			side: THREE.DoubleSide,
-		} );
-		const mesh = new THREE.Mesh( planeGeo, planeMat );
-		mesh.rotation.x = Math.PI * - .5;
-		scene.add( mesh );
-
-	}
-
-	{
-
-		const skyColor = 0xB1E1FF; // light blue
-		const groundColor = 0xB97A20; // brownish orange
-		const intensity = 2;
-		const light = new THREE.HemisphereLight( skyColor, groundColor, intensity );
-		scene.add( light );
-
-	}
-
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2.5;
-		const light = new THREE.DirectionalLight( color, intensity );
-		light.position.set( 0, 10, 0 );
-		light.target.position.set( - 5, 0, 0 );
-		scene.add( light );
-		scene.add( light.target );
-
-	}
-
-	{
-
-	loader.load( '/beohus.gltf', function ( gltf ) {
-		console.log("loaded");
-		scene.add( gltf.scene);
-		scene.position.set(0, 0, 0);
-		scene.scale.set(2,2,2);
-
-	}, undefined, function ( error ) {
-
-		console.error( error );
-
-	});
-
-
-	}
-
-	function resizeRendererToDisplaySize( renderer ) {
-
-		const canvas = renderer.domElement;
-		const width = canvas.clientWidth;
-		const height = canvas.clientHeight;
-		const needResize = canvas.width !== width || canvas.height !== height;
-		if ( needResize ) {
-
-			renderer.setSize( width, height, false );
-
-		}
-
-		return needResize;
-
-	}
-
-	function render() {
-
-		if ( resizeRendererToDisplaySize( renderer ) ) {
-
-			const canvas = renderer.domElement;
-			camera.aspect = canvas.clientWidth / canvas.clientHeight;
-			camera.updateProjectionMatrix();
-
-		}
-
-		renderer.render( scene, camera );
-
-		requestAnimationFrame( render );
-
-	}
-
-	requestAnimationFrame( render );
-
-}
-
-main();
-
-  </script>
 
 </html>
