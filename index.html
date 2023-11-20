@@ -6,6 +6,7 @@
 		<title>Three.js - Load .GLTF</title>
 
 		<link rel="stylesheet" href="/styles/veiwerStyles.css">
+		<link rel="stylesheet" href="/styles/StyleSheet.css">
 
 		<script type="importmap">
 			{
@@ -180,18 +181,17 @@
 				camera.lookAt(controls.target);
 
 				
-				camera.fov = 20;
+				camera.fov = 30;
 				camera.updateProjectionMatrix();
 			}
 
 			function viewHandlerThree(){
 				console.log(camera);
-				camera.lookAt(controls.target);
 
 				camera.position.set(50, 10, 10);
-
+				camera.lookAt(controls.target);
 				
-				camera.fov = 20;
+				camera.fov = 50;
 				camera.updateProjectionMatrix();
 			}
 
@@ -201,9 +201,11 @@
 	</head>
 
   <body>
+	
+	<nav> </nav>
 	<!-- All the buttons below are used as camera controls alongside the orbit controls -->
 	<div id="buttonContainer">
-		<button id = "ViewSelectorOne" type="button">View One Test</button>
+		<button  id = "ViewSelectorOne" type="button">View One Test</button>
 		<button  id = "ViewSelectorTwo" type="button">View Two Test</button>
 		<button  id = "ViewSelectorThree" type="button">View Three Test</button>
 	</div>

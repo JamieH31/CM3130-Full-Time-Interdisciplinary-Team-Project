@@ -1,1 +1,61 @@
 /* Universal styles should be placed in here i.e. navigation and header/footer styles*/
+/*Boilerplate */
+@media all and (max-width: 800px) {
+    .nav {
+        justify-content: space-around;
+    }
+}
+  
+@media all and (max-width: 600px) {
+    .nav {
+        flex-flow: column wrap;
+        padding: 0;
+    }
+    .nav a { 
+        text-align: center; 
+        padding: 10px;
+        border-top: 1px solid rgba(255, 255, 255,0.3); 
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+    }
+    .nav li:last-of-type a {
+        border-bottom: none;
+    }
+}
+
+
+/* Remove any whitespace around the page */
+body{
+    margin: 0;
+}
+  
+/* footer */
+footer{
+display: flex;
+flex-flow: wrap;
+justify-content: flex-start; 
+
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+bottom:0px;
+}
+
+footer small{
+color: white;
+}
+  
+/* Nav Styles */
+.nav{
+display: flex;
+flex-flow: row wrap;
+justify-content: flex-start;
+
+    
+list-style: none;
+margin: 0; 
+padding: 1%;
+background: deepskyblue;
+}
+
+
