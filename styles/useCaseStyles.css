@@ -72,7 +72,7 @@ main{
   padding: 3em;
 }
 
-#rightSection{
+.rightSection{
   flex:65%;
 }
 
@@ -81,6 +81,26 @@ main{
   object-position: center;
   height: 100vh;
   overflow: hidden;
+}
+
+.hexagon{
+  position:relative;
+  width:100px;
+  height:70px;
+  line-height:100px;
+  text-align: center;
+}
+
+.hexagon:before{
+  position: absolute;
+  color:green;
+  content: "\2B21";
+  font-size:160px;
+  z-index:1;
+  width:100%;
+  left:0;
+  top:0;
+
 }
 
 /*
