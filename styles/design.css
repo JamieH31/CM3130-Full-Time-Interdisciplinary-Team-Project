@@ -44,3 +44,9 @@ nav{
     width: 110%;
     height: auto;
 }
+
+nav a{
+    color:white;
+    text-decoration: none;
+  }
+  

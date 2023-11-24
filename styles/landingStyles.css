@@ -18,3 +18,12 @@
   width: 50%; 
   height: 75%;
 }
+
+nav a{
+  color:white;
+  text-decoration: none;
+}
+
+body{
+  background-image: linear-gradient(rgb(200, 221, 200), rgb(255, 255, 255)); /* the green here is temporary, I will find the actual hex code for the final product */
+}

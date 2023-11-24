@@ -41,7 +41,7 @@ width: 100%;
 height: 5%;
 bottom:0px;
 
-background: rgb(91, 238, 135);
+background:  rgb(8, 53, 22);
 }
 
 footer small{
@@ -58,6 +58,5 @@ justify-content: flex-start;
 list-style: none;
 margin: 0; 
 padding: 1%;
-background: rgb(91, 238, 135);
+background: rgb(8, 53, 22);
 }
-  
