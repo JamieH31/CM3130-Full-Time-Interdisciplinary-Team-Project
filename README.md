@@ -1,5 +1,13 @@
 # CM3130 - Full Time: Interdisciplinary Team Project
 
+### To aquire the project for yourself
+
+To download the repo,
+1. Copy the link found either [Here](https://github.com/JamieH31/CM3130-Full-Time-Interdisciplinary-Team-Project.git), copy the the link using the right click menu, or found within the code button at the top of the repo
+2. We use vscode in our development, where the repo can be cloned by first using the shortcut, `ctrl+shift+p`, this opens the command pallete where you can then search and click on git clone
+3. Then in the dialoug box provided input the link above and you'll have the access to the up to date repo 
+   
+
 
 ### Running the Website on a local machine
 
